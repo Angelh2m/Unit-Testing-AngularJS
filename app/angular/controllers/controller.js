@@ -24,27 +24,58 @@
   *  SECOND TEST 
   */ 
 
- var app = angular.module('plunker', []);
+ var app = angular.module('Ratings', []);
 
- app.directive('foo', function() {
-   return {
-     restrict: 'E',
-     controller: function($scope) {
-       this.add = function(x, y) {
-         return x + y;
-       }
-     }
-   };
- });
- 
- app.directive('bar', function() {
-   return {
-     restrict: 'E',
-     require: '^foo',
-     link: function(scope, element, attrs, foo) {
-       scope.callFoo = function(x, y) {
-         scope.sum = foo.add(x, y);
-       }
-     }
-   };
- });
+app.directive('rater', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          icon: '@',
+          max: '=?',
+          rating: '=?',
+          readOnly: '@',
+          functionOnSelect: '@'
+        },
+        controller: function ($scope) {
+          $scope.max = $scope.max || 5;
+          $scope.rating = $scope.rating || Math.round($scope.max)/2;
+
+
+          // function-on-select
+          $scope.runFunction = function (newRating) {
+            alert('Adding rating of '  + newRating + ' to server.');
+          };
+        },
+        template: '<ul class="rating">' +
+            '<li ng-repeat="item in items" ng-class="item" ng-click="toggle($index)">' +
+            '{{icon}}' +
+            '</li>' +
+            '</ul>',
+        link: function (scope, element, attrs) {
+
+          var update = function () {
+            scope.items = [];
+            for (var i = 0; i < scope.max; i++) {
+              scope.items.push({filled: i < scope.rating});
+            }
+            scope.icon = scope.icon || '★';
+            // any properties here will update on click
+          };
+
+          scope.toggle = function (index) {
+            if (scope.readOnly && scope.readOnly === 'true') {
+              return;
+            }
+            scope.rating = index + 1;
+            if (attrs.functionOnSelect) {
+              scope.runFunction(scope.rating);
+            }
+          };
+
+          scope.$watch('rating', function (oldVal, newVal) {
+            if (newVal) { update(); }
+          });
+
+        }
+      };
+    });
