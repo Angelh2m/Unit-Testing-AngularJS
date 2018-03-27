@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start karma.conf.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +14,12 @@
   "devDependencies": {
     "jasmine": "^3.1.0",
     "jasmine-core": "^3.1.0",
-    "karma": "^2.0.0",
-    "karma-jasmine": "^1.1.1"
+    "karma": "^0.13.22",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-phantomjs2-launcher": "^0.5.0",
+    "phantomjs-prebuilt": "^2.1.16"
   }
 }
