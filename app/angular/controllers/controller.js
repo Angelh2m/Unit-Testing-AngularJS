@@ -1,5 +1,49 @@
 
 
+
+
+
+/** 
+*  Another Test using template 
+*/ 
+
+var api = angular.module('buttons', []);
+
+
+  api.controller('demoController', ['$scope',
+    function($scope) {
+
+      //primary button
+      $scope.outerScopeInfo = {
+        name: 'Submit',
+        class: 'awesome-class'
+      };
+
+    }
+  ])
+
+  api.directive('primaryButton', function() {
+    return {
+      restrict: 'EA',
+      replace: true,
+      scope: {
+        /* Here is very important, where we bind the value in the isolateScope 
+        to the info attribute */
+        isoScopeInfo: '=info'
+      },
+      link: function(scope, elem) {
+        // We can verify what happened in the link function, let's see!
+        console.log('isolatescope:', scope.isoScopeInfo.name)
+      },
+      // Finally we render some of the values out from our isolatedScope
+      template: '<button name="{{isoScopeInfo.name}}" class="{{isoScopeBtnInfo.class}}">{{isoScopeInfo.name}}</button>'
+    }
+  })
+
+/** 
+*  Second Test 
+*/ 
+
  var app = angular.module("testApp", []);
 
  
@@ -21,7 +65,7 @@
 
 
   /** 
-  *  SECOND TEST 
+  *  Third TEST 
   */ 
 
  var app = angular.module('Ratings', []);

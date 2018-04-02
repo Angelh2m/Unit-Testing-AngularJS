@@ -1,3 +1,44 @@
+
+
+/** 
+*  Another test 
+*/ 
+
+
+describe('Testing a Hello World controller', function() {
+  var $scope = null;
+  var ctrl = null;
+
+  //you need to indicate your module in a test
+  beforeEach(module('buttons'));
+
+  beforeEach(inject(function($rootScope, $controller, $compile) {
+    $compile = $compile;
+    $scope = $rootScope.$new();
+
+    // Here is the outer scope information defined, what we want to get into the directive
+    $scope.outerScopeInfo = {
+      name: 'super button',
+      class: 'btn-primary'
+    }
+
+    // Here we declare that the "info" attribute is bound to the *value* of outerScopeBtnInfo
+    elm = angular.element('<primary-button info="outerScopeInfo" ></primary-button>');
+    e = $compile(elm)($scope);
+    $scope.$digest();
+  }));
+  
+  it('should have rendered the button', function() {
+    expect(e.html()).toContain($scope.outerScopeInfo.name); // Does the HTML contain button name
+    // Access the isolateScope using <ELEMENT>.isolateScope, to see what's happening inside
+    expect(e.isolateScope().isoScopeInfo).toEqual($scope.outerScopeInfo);
+  })
+});
+
+/** 
+*  Second 
+*/ 
+
 describe('Simple Result Directive', function() {
   
     beforeEach(module('testApp')); //loading Testing module
@@ -34,7 +75,7 @@ describe('Simple Result Directive', function() {
 
 
 /** 
-*  Second Test 
+*  third Test 
 */ 
 
 describe('Directive: rater', function() {

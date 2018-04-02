@@ -5,3 +5,14 @@
             </environemtn-list-item>
     </li>
 </ul>
+
+<div ng-show="!addressEmpty">
+    <br ng-show="hasAddress1" />
+    <br ng-show="hasAddress2" />
+    <span ng-show="hasStateSeparator">, </span>
+    <span ng-show="hasZipSeparator"> </span>
+</div>
+<div class="emptyAddress"
+    ng-show="addressEmpty">
+    No address available
+</div>

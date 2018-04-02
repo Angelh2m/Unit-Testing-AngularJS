@@ -45,7 +45,7 @@ describe('myNameSpace.directives', function() {
   
     beforeEach(inject(function($rootScope, $compile) {
       element = angular.element(
-        '<directive>Old text</directive>'
+        '<directive> {{template}} </directive>'
       );
   
       scope = $rootScope.$new();

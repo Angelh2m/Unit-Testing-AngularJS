@@ -19,7 +19,7 @@ module.exports = function(config) {
       'http://code.jquery.com/jquery-1.11.3.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/angular/**/**/*.js',
+      'app/angular/**/*.js',
       'app/tests/**/**/*.js',
       'app/*.html'
     ],
@@ -29,10 +29,7 @@ module.exports = function(config) {
     exclude: [
     ],
 
-    preprocessors: {
-      'app/*.html': ['ng-html2js']
-    },
-  
+
     // we will be accessing this by module name later on in Jasmine
     ngHtml2JsPreprocessor: {
         moduleName: 'templates'
@@ -42,25 +39,32 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '*.js': ['coverage']
+      'app/angular/**/*.js': ['coverage']
+    },
+  
+
+    // configure the coverage reporter
+    coverageReporter: {
+      includeAllSources: true,
+      dir: 'coverage/',
+      reporters: [
+          { type: "html", subdir: "html" },
+          { type: 'text-summary' }
+      ]
     },
 
     plugins: [  
       'karma-jasmine',
       'karma-phantomjs-launcher',
-      // 'karma-coverage' 
+      'karma-coverage',
+      // 'karma-ng-html2js-preprocessor' ,
       // required for coverage
     ],
-
     /** 
     *  For Coverage 
     */ 
 
-    // coverageReporter: {  
-    //   type: 'html',
-    //   dir: 'coverage'
-    // },
-    
+
 
 
     // test results reporter to use
@@ -68,6 +72,13 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress', 'coverage'],
 
+    htmlAngularReport:{
+      outputFile:'nameOfFile.html',
+      reportFolder:'folderName',
+      reportTitle:'title of report'
+    },
+
+    // the default configuration 
 
     // web server port
     port: 9876,
